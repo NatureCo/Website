@@ -37,8 +37,8 @@ jobs:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
         with:
           coverageCommand: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover=coverage.xml
-          coverageLocations:
-            "./coverage.xml:clover"
+          coverageLocations: |
+            ${{github.workspace}}/coverage.xml:clover
           prefix: "${{github.workspace}}"
       - name: Codecov
         run: bash <(curl -s https://codecov.io/bash)
