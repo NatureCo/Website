@@ -31,6 +31,10 @@ jobs:
         run: php artisan migrate
       - name: Testing
         run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover=coverage.xml
+      - name: Codecov
+        run: bash <(curl -s https://codecov.io/bash)
+        env:
+          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
       - name: Codeclimate
         uses: paambaati/codeclimate-action@v2.7.5
         env:
@@ -39,7 +43,3 @@ jobs:
           coverageCommand: echo 1
           coverageLocations: |
             ${{github.workspace}}/coverage.xml:clover
-      - name: Codecov
-        run: bash <(curl -s https://codecov.io/bash)
-        env:
-          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
